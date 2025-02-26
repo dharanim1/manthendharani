@@ -1,0 +1,16 @@
+package JUnit;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class OrderService2Test {
+	private OrderService2 orderService2;
+	@BeforeEach 
+	public void setUp() {
+		orderService2 = new OrderService2();
+	}
+	
+	
+}

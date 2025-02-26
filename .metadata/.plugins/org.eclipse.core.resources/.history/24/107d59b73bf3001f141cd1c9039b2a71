@@ -1,0 +1,80 @@
+package com.ems.EMS.model;
+ 
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+ 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+ 
+@Configuration
+@ComponentScan(basePackages ="com.ems.EMS")
+public class EmsAppConfig {
+	@Bean
+	public Address address() {
+		Address address = new Address();
+		address.setStreet("kstreet");
+		address.setState("AndhraPradesh");
+		address.setCity("Guntur");
+		address.setZipcode("522111");
+		return address;
+	}
+	@Bean
+	public Department department() {
+		Department department = new Department();
+		department.setDeptId(1);
+		department.setDeptName("IT");
+return  department;
+	}
+	@Bean
+	public List<String> skills(){
+		return Arrays.asList("Java","MySQL","SpringFramework");
+	}
+	@Bean
+	public Employee employee() {
+		Employee employee = new Employee();
+		employee.setId(1);
+		employee.setAddress(address());
+		employee.setDepartment(department());
+		employee.setSkills(skills());
+		return employee;
+	}
+	@Bean
+	public List<String> projectsHandeled(){
+		return Arrays.asList("a","b","c");
+	}
+	@Bean
+	public Performance performance() {
+		Performance performance = new Performance();
+		performance.setEmployeeId(1);
+		performance.setFeedback("Satisfied");
+		performance.setRating(5);
+		performance.setEligibleForPromotion("true");
+		performance.setProjectsHandled(projectsHandeled());
+		return performance;
+	}
+	@Bean
+	public Payroll payroll() {
+		Payroll payroll = new Payroll();
+		payroll.setEmployeeId(1);
+		payroll.setBaseSalary(50000);
+		payroll.setBonuses(5000);
+		payroll.setDeductions(2000);
+		return payroll;
+	}
+	@Bean
+	public Map<Integer,Employee> empRecords(){
+		Map<Integer,Employee> records = new HashMap<>();
+		records.put(1, employee());
+		return records;
+	}
+	@Bean
+	public HR hr() {
+		HR hr = new HR();
+		hr.setEmployeeRecords(empRecords());
+		return hr;
+	}
+ 
+}

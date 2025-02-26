@@ -1,0 +1,45 @@
+package JUnit;
+
+
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Test;
+
+class OrderServiceTest {
+	OrderService orderService = new OrderService();
+
+    
+
+    @Test
+    void testInsufficientStock() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            orderService.placeOrder(15);
+        });
+        assertEquals("Insufficient stock", exception.getMessage());
+    }
+
+    @Test
+    void testCalculateTotal() {
+        double price = 50.0;
+        int quantity = 2;
+        double expectedTotal = price * quantity * (1 - orderService.getDiscout());
+        
+        assertEquals(expectedTotal, orderService.calPrice(price, quantity));
+    }
+    //suffient stock
+    //takePlacePlaceOrder() -> placeorder(5) -> succed -> assertTrue
+    //stock should reduce to 5, assertEquals (5, getStock())
+    public void testSufficientStock() {
+        
+      
+        boolean orderPlaced = orderService.placeOrder(5);
+
+        
+        assertTrue(orderPlaced, "Order should be placed successfully");
+
+       
+        assertEquals(5, orderService.getstock(), "Stock should be reduced to 5");
+    
+}
+}

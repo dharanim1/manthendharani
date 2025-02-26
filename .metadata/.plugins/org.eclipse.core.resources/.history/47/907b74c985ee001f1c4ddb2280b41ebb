@@ -1,0 +1,29 @@
+package JUnit;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+class OrderService2Test {
+	private OrderService2 orderService2;
+	@BeforeEach  // initialize orderservice2 before test case
+	public void setUp() {
+		orderService2 = new OrderService2();
+	}
+	@Test
+	public void TestcalPrice_ValidInputs() {
+		double price = 100.00;
+		int quantity = 2;
+		double expectedPrice = price*quantity*(1-orderService2.getDiscout());
+		assertEquals(expectedPrice,orderService2.calPrice(price, quantity));
+	}
+	@Test
+    public  void testPlaceOrder_Successful() {
+        boolean orderPlaced = orderService2.placeOrder(5);
+        assertTrue(orderPlaced, "Order should be placed successfully");
+        assertEquals(5, orderService2.getstock(), "Stock should be reduced to 5");
+    }
+	
+	
+}

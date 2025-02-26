@@ -1,0 +1,84 @@
+package com.ems.EMS.model;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+@Configuration
+@ComponentScan(basePackages = { "com.ems.EMS.model","com.ems.EMS.service"})
+public class EmsAppConfig {
+	@Bean
+	public Map<Integer, Employee> empRecords() {
+		Map<Integer, Employee> records = new HashMap<Integer, Employee>();
+		records.put(1, employee());
+		return records;
+	}
+@Bean
+public HR hr() {
+	HR hr = new HR();
+	hr.setEmployeeRecords(empRecords());
+	return hr;
+}
+	  @Bean
+	    public Address address() {
+	        Address address = new Address();
+	        address.setStreet("123 Main Street");
+	        address.setCity("New York");
+	        address.setState("NY");
+	        address.setZipcode("10001");
+	        return address;
+	    }
+	    // Department Bean
+	    @Bean
+	    public Department department() {
+	        Department department = new Department();
+	        department.setDeptId(101);
+	        department.setDeptName("Engineering");
+	        return department;
+	    }
+	    // List of Skills for Employee
+	    @Bean
+	    public List<String> skills() {
+	        return Arrays.asList("Java", "Spring Boot", "Microservices", "SQL");
+	    }
+	    // Employee Bean
+	    @Bean
+	    public Employee employee() {
+	        Employee employee = new Employee();
+	        employee.setId(1);
+	        employee.setName("Afroz");
+	        employee.setEmail("afroz@example.com");
+	        employee.setPhone("123-456-7890");
+	        employee.setSalary(85000.00);
+	        employee.setDesignation("Software Engineer");
+	        employee.setAddress(address()); // Inject Address
+	        employee.setDepartment(department()); // Inject Department
+	        employee.setSkills(skills()); // Inject Skills List
+	        return employee;
+	    }
+		@Bean
+		public Payroll payroll() {
+			Payroll payroll = new Payroll();
+		    payroll.setEmployeeId(null);
+			payroll.setBaseSalary(50000);
+			payroll.setBonuses(10000.00);
+			payroll.setDeductions(1000);
+			return payroll;
+		}
+		@Bean
+		public List<String> projects() {
+			return Arrays.asList("HMS", "EMS", "RMS");
+		}
+		@Bean
+		public Performance performance() {
+			Performance performance = new Performance();
+			performance.setEmployeeId(0);
+			performance.setRating(4.5);
+			performance.setFeedback("Good Afroz");
+			performance.setProjectsHandled(projects());
+			performance.setEligibleForPromotion(true);
+			return performance;
+		}
+}

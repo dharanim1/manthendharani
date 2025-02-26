@@ -1,0 +1,35 @@
+spring.application.name=EMS
+server.port=4300
+#address configuration
+address.city = 123 Main Street
+address.street = New Delhi
+address.state = Delhi
+address.zipCode = 123456
+ 
+#department configuration
+department.DeptId = 102
+department.DeptName = Marketing
+ 
+# employee
+employee.id = 2
+employee.name = Jhon Wick
+employee.email = wick@gmail.com
+employee.phone = 14377584685
+employee.salary = 70000
+employee.designation = Marketing Intern
+employee.skills = PhotoShop, UX design, strategy
+ 
+#HR
+ 
+ 
+#performance
+performance.employeeid = 2
+performance.rating = 4.8
+performance.feedback = Good
+performance.projectsHandled = projectA, projectB, projectC
+performance.eligibleForPromotion = true
+ 
+#payroll
+payroll.employeeId = 2
+payroll.bonuses = 2000
+payroll.deductions = 1000

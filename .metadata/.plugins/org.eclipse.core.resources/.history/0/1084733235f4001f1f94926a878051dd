@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Book Shop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<h2>Welcome to Online Book Shop</h2>
+
+<table>
+    <tr>
+        <th>BookID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Price</th>
+    </tr>
+    <tr>
+        <td>1</td>
+        <td>ABC</td>
+        <td>F. Scott</td>
+        <td>123</td>
+    </tr>
+    <tr>
+        <td>2</td>
+        <td>AD</td>
+        <td>George </td>
+        <td>40</td>
+    </tr>
+    <tr>
+        <td>3</td>
+        <td>files</td>
+        <td>Harper</td>
+        <td>340</td>
+    </tr>
+</table>
+
+</body>
+</html>

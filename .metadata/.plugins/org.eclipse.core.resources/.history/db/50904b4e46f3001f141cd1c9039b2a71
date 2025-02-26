@@ -1,0 +1,28 @@
+spring.application.name=EMS
+server.port=4300
+address.street=Church street
+address.city=London
+address.state=UK
+address.zipCode=1235
+
+department.id=101
+department.name=IT
+
+employee.id=1
+employee.name=Supriya
+employee.email=supriya@example.com
+employee.phone=123-456-7890
+employee.salary=85000.00
+employee.designation=Software Engineer
+employee.skills=Java,mysql,SpringFrameWork
+
+performance.employeeid=1
+performance.rating=5
+performance.feedback=Good
+performance.projectsHandled=EcommerceProject,EmployeeManagementProject,Banking Application
+performance.eligibleForPromotion=true
+
+payroll.employeeId=1
+payroll.baseSalary=70000
+payroll.bonuses=5000
+payroll.deductions=1000

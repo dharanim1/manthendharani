@@ -1,0 +1,39 @@
+package com.ems.EMS;
+ 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
+ 
+import com.ems.EMS.model.Employee;
+import com.ems.EMS.model.EmsAppConfig;
+import com.ems.EMS.model.HR;
+import com.ems.EMS.model.Payroll;
+import com.ems.EMS.model.Performance;
+import com.ems.EMS.service.EmployeeService;
+import com.ems.EMS.service.HRService;
+import com.ems.EMS.service.PayrollService;
+import com.ems.EMS.service.PerformanceService;
+@SpringBootApplication
+public class EmsApplication {
+ 
+	public static void main(String[] args) {
+		try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(EmsAppConfig.class)) {
+			EmployeeService empService = context.getBean(EmployeeService.class);
+			empService.printEmpDetails();
+			System.out.println("Annual Salary: " + empService.calAnnualSalary());
+			HRService hrs=context.getBean(HRService.class);
+			hrs.getEmpById(1);
+			PayrollService prs=context.getBean(PayrollService.class);
+			prs.printPayRollService();
+			PerformanceService ps=context.getBean(PerformanceService.class);
+			ps.listAllProjects();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	}
+		
+ 
+}
