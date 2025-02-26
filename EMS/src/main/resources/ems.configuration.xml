@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+
+       xsi:schemaLocation="
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!-- Address Bean (Setter Injection) -->
+<bean id="address" class="com.ems.EMS.model.Address">
+<property name="street" value="123 Main St."></property>
+<property name="city" value="New Delhi"></property>
+<property name="state" value="Delhi"></property>
+<property name="zipcode" value="143890"></property>
+</bean>
+ 
+    <!-- Department Bean (Constructor Injection) -->
+<bean id="department" class="com.ems.EMS.model.Department">
+<constructor-arg value="101"></constructor-arg>
+<constructor-arg value="IT"></constructor-arg>
+</bean>
+ 
+    <!-- Employee Bean (Constructor Injection) -->
+<bean id="employee" class="com.ems.EMS.model.Employee">
+<constructor-arg value="1"></constructor-arg>
+<constructor-arg value="Dharani"></constructor-arg>
+<constructor-arg value="dharanivarmam12@gmail.com"></constructor-arg>
+<constructor-arg value="7337300221"></constructor-arg>
+<constructor-arg value="55000"></constructor-arg>
+<constructor-arg value="Software Engineer"></constructor-arg>
+<constructor-arg ref="address"></constructor-arg>
+<constructor-arg ref="department"></constructor-arg>
+<constructor-arg>
+<list>
+<value>Java</value>
+<value>MySQL</value>
+<value>Spring Framework</value>
+</list>
+</constructor-arg>
+</bean>
+ 
+    <!-- Payroll Bean (Setter Injection) -->
+<bean id="payroll" class="com.ems.EMS.model.Payroll">
+<property name="employeeId" value="1"></property>
+<property name="baseSalary" value="55000"></property>
+<property name="bonuses" value="5000"></property>
+<property name="deductions" value="500"></property>
+</bean>
+ 
+    <!-- Performance Bean (Setter Injection) -->
+<bean id="performance" class="com.ems.EMS.model.Performance">
+<property name="employeeId" value="1"></property>
+<property name="rating" value="5"></property>
+<property name="feedback" value="Satisfied"></property>
+<property name="projectsHandled">
+<list>
+<value>EMS</value>
+<value>TMS</value>
+</list>
+</property>
+<property name="eligibleForPromotion" value="true"></property>
+</bean>
+ 
+    <!-- HR Bean (Setter Injection) -->
+<bean id="hr" class="com.ems.EMS.model.HR">
+<property name="employeeRecords">
+<map>
+<entry key="1" value-ref="employee"></entry>
+</map>
+</property>
+</bean>
+ 
+</beans>
+
+ 
