@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Online Book Shop</title>
+</head>
+<body>
+<h1 id="heading">Welcome to Online Book Shop</h1>
+<p class="message">This is a paragraph.</p>
+<button id="btn">Click Me</button>
+</body>
+<script type="text/javascript">
+
+//Select element by ID
+const heading = document.getElementById('heading');
+
+// Select element by class name
+const message = document.getElementsByClassName('message')[0];
+
+// Select element by tag name
+const tags = document.getElementsByTagName('h1')[0];
+
+// Modify styles and text content
+heading.style.color = 'blue';
+message.textContent = 'This is an updated paragraph.';
+tags.style.fontSize = '24px';
+
+// Add event listener to button
+const button = document.getElementById('btn');
+button.addEventListener('click', () => {
+    alert('Button clicked!');
+});
+
+// Add mouseover event to heading
+heading.addEventListener('mouseover', () => {
+    heading.style.color = 'red';
+});
+
+// Add mouseover event to button
+button.addEventListener('mouseover', () => {
+    button.style.backgroundColor = 'lightgray';
+});
+
+</script>
+</html>
+ 

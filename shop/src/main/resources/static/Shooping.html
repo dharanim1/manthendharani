@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Shopping Cart</title>
+</head>
+<body>
+
+<h2>Shopping Cart Receipt</h2>
+
+<script>
+// Shopping cart items
+const cartItems = [
+    { name: "Laptop", price: 55000, quantity: 1 },
+    { name: "Mouse", price: 1500, quantity: 2 },
+    { name: "Keyboard", price: 3000, quantity: 1 },
+    { name: "Monitor", price: 12000, quantity: 1 }
+];
+
+// Function to generate receipt
+function generateReceipt(cart) {
+    let total = 0;
+    let receipt = "Receipt:\n";
+    
+    cart.forEach(item => {
+        const itemTotal = item.price * item.quantity;
+        total += itemTotal;
+        receipt += `${item.name} - ${item.quantity} x ${item.price} = ${itemTotal}\n`;
+    });
+    
+    receipt += `Total: ${total}`;
+    return receipt;
+}
+
+// Function call to generate and display the receipt
+const receipt = generateReceipt(cartItems);
+console.log(receipt);
+</script>
+
+</body>
+</html>

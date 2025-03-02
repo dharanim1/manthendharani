@@ -1,84 +1,86 @@
-package com.onlinebookshop.shop;
-
-import java.util.List;
- 
-import org.springframework.beans.factory.annotation.Autowired;
-
-import org.springframework.boot.CommandLineRunner;
+/*package com.onlinebookshop.shop;
 
 import org.springframework.boot.SpringApplication;
 
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
+//import java.util.List;
  
-import com.onlinebookshop.shop.model.Author;
+//import org.springframework.beans.factory.annotation.Autowired;
 
-import com.onlinebookshop.shop.model.Book;
+//import org.springframework.boot.CommandLineRunner;
 
-import com.onlinebookshop.shop.model.Order;
+//import org.springframework.boot.SpringApplication;
 
-import com.onlinebookshop.shop.service.AuthorService;
+//import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.onlinebookshop.shop.service.BookService;
+//import org.springframework.context.annotation.EnableAspectJAutoProxy;
+ 
+//import com.onlinebookshop.shop.model.Author;
 
-import com.onlinebookshop.shop.service.OrderService;
+//import com.onlinebookshop.shop.model.Book;
 
-@EnableAspectJAutoProxy
+//import com.onlinebookshop.shop.model.Order;
 
-@SpringBootApplication
+//import com.onlinebookshop.shop.service.AuthorService;
 
-public class ShopApplication implements CommandLineRunner {
+//import com.onlinebookshop.shop.service.BookService;
 
-    @Autowired
+//import com.onlinebookshop.shop.service.OrderService;
 
-    private BookService bookService;
+//@EnableAspectJAutoProxy
 
-    @Autowired
+//@SpringBootApplication
 
-    private AuthorService authorService;
+public class ShopApplication {//implements CommandLineRunner {
 
-    @Autowired
+    //@Autowired
 
-    private OrderService orderService;
+   // private BookService bookService;
+
+    //@Autowired
+
+    //private AuthorService authorService;
+
+    //@Autowired
+
+    //private OrderService orderService;
 
     //inject the author beans 
 
     // inject the order beans
 
-    @Autowired
+   // @Autowired
 
-    private Book book1;
+    ////private Book book1;
 
-    @Autowired
+   // @Autowired
 
-    private Book book2;
+    //private Book book2;
 
-    @Autowired
+    //@Autowired
 
-    private Author author1;
+    //private Author author1;
 
-    @Autowired
+    //@Autowired
 
-    private Author author2;
+    //private Author author2;
 
-    @Autowired
+    //@Autowired
 
-    private Order order1;
+   // private Order order1;
 
-    @Autowired
+    //@Autowired
 
-    private Order order2;
+    //private Order order2;
 
     public static void main(String[] args) {
 
         SpringApplication.run(ShopApplication.class, args);
 
     }
+}
+   // @Override
 
-    @Override
-
-    public void run(String... args) throws Exception {
+    //public void run(String... args) throws Exception {
 
         // Test the services
 
@@ -88,25 +90,25 @@ public class ShopApplication implements CommandLineRunner {
 
 //        Author author2 = new Author(4, "Robert", "US");
 
-        authorService.addAuthor(author1);
+       // authorService.addAuthor(author1);
 
-        authorService.addAuthor(author2);
+        //authorService.addAuthor(author2);
 
-        System.out.println("Authors added successfully");
+        //System.out.println("Authors added successfully");
 
         // Fetch all authors
 
-        List<Author> authors = authorService.getAllAuthors();
+        //List<Author> authors = authorService.getAllAuthors();
 
-        System.out.println("-----Author List-----");
+       // System.out.println("-----Author List-----");
 
-        authors.forEach(author -> System.out.println("Author Id: " + author.getId() + ", Name: " + author.getName() + ", Country: " + author.getCountry()));
+        //authors.forEach(author -> System.out.println("Author Id: " + author.getId() + ", Name: " + author.getName() + ", Country: " + author.getCountry()));
 
         // Get author by id
 
-        int authorId = 1;
+        //int authorId = 1;
 
-        Author foundAuthor = authorService.getAuthorById(authorId);
+       /* Author foundAuthor = authorService.getAuthorById(authorId);
 
         System.out.println("Found Author: " + foundAuthor);
 
@@ -138,7 +140,7 @@ public class ShopApplication implements CommandLineRunner {
 
 //        Book book2 = new Book(4, "New Book JDBC2", 310.00,2);
 
-        bookService.addBook(book1);
+        /*bookService.addBook(book1);
 
         bookService.addBook(book2);
 
@@ -234,6 +236,14 @@ public class ShopApplication implements CommandLineRunner {
 
     }
 
+}*/
+package com.onlinebookshop.shop;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+@SpringBootApplication
+public class ShopApplication {
+	public static void main(String[] args) {
+		SpringApplication.run(ShopApplication.class, args);
+	}
 }
-
  

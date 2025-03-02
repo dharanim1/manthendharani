@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Student Report Card</title>
+</head>
+<body>
+
+<h2>Student Report Card</h2>
+
+<script>
+// Student data
+const studentsData = [
+    {
+        name: "Tanuj",
+        marks: {
+            Maths: 95,
+            Science: 97,
+            Computer: 98
+        }
+    },
+    {
+        name: "Aarav",
+        marks: {
+            Maths: 88,
+            Science: 92,
+            Computer: 90
+        }
+    },
+    {
+        name: "Ishita",
+        marks: {
+            Maths: 78,
+            Science: 85,
+            Computer: 80
+        }
+    },
+    {
+        name: "Riya",
+        marks: {
+            Maths: 85,
+            Science: 89,
+            Computer: 92
+        }
+    }
+];
+
+// Function to generate report card
+function generateReportCard(student) {
+    const subjects = Object.keys(student.marks);
+    const totalMarks = subjects.reduce((total, subject) => total + student.marks[subject], 0);
+    const averageMarks = totalMarks / subjects.length;
+    const percentage = (totalMarks / (subjects.length * 100)) * 100;
+
+    let reportCard = `Report Card for ${student.name}\n`;
+    reportCard += `Total Marks: ${totalMarks}\n`;
+    reportCard += `Average Marks: ${averageMarks.toFixed(2)}\n`;
+    reportCard += `Percentage: ${percentage.toFixed(2)}%\n`;
+
+    return reportCard;
+}
+
+// Generate and display report cards for all students
+studentsData.forEach(student => {
+    const reportCard = generateReportCard(student);
+    console.log(reportCard);
+});
+</script>
+
+</body>
+</html>

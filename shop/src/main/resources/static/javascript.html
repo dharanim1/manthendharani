@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <title>d1</title>
+</head>
+<body>
+
+<h2>javascript</h2><script>
+let a = 10;
+let b = 5;
+console.log(`Addition: ${a + b}`); 
+console.log(`Subtraction: ${a - b}`); 
+console.log(`Multiplication: ${a * b}`);
+console.log(`Division: ${a / b}`); 
+console.log(`Modulus: ${a % b}`); 
+
+
+console.log(`Equal to: ${a == b}`); 
+console.log(`Not equal to: ${a != b}`); 
+console.log(`Greater than: ${a > b}`); 
+console.log(`Less than: ${a < b}`); 
+
+
+let x = true;
+let y = false;
+console.log(`Logical AND: ${x && y}`); 
+console.log(`Logical OR: ${x || y}`); 
+console.log(`Logical NOT: ${!x}`); 
+
+
+let c = 20;
+c += 10;
+console.log(`Assignment (+=): ${c}`); 
+
+
+let d = 5;
+d++;
+console.log(`Increment: ${d}`); 
+d--;
+
+// Ternary Operator
+let age = 18;
+let canVote = (age >= 18) ? "Yes" : "No";
+console.log(`Can vote: ${canVote}`); // Output: Yes
+
+// String Declarations
+let singleQuoteString = 'Single Quotes';
+let doubleQuoteString = "Double Quotes";
+let backtickString = `Backticks - ES6`;
+
+console.log(singleQuoteString);
+console.log(doubleQuoteString);
+console.log(backtickString);
+
+// String Methods
+let text = "  JavaScript Learning ...  ";
+
+// Length of the string
+console.log(`Length: ${text.length}`); // Output: 24
+
+// Convert to uppercase
+console.log(`Uppercase: ${text.toUpperCase()}`); // Output: "  JAVASCRIPT LEARNING ...  "
+
+// Convert to lowercase
+console.log(`Lowercase: ${text.toLowerCase()}`); // Output: "  javascript learning ...  "
+
+// Trim spaces
+console.log(`Trimmed: ${text.trim()}`); // Output: "JavaScript Learning ..."
+
+// Slice a portion of the string
+console.log(`Slice (2, 10): ${text.slice(2, 10)}`); // Output: "JavaScri"
+
+// Replace text
+console.log(`Replace 'Java' with 'Type': ${text.replace("Java", "Type")}`); // Output: "  TypeScript Learning ...  "
+
+// Split string into an array
+let csvText = "value1,value2,value3";
+let splitArray = csvText.split(",");
+console.log(`Split Array: ${splitArray}`); // Output: ["value1", "value2", "value3"]
+
+// Arrays
+let fruits = ["Apple", "Banana", "Cherry"];
+console.log(`Fruits: ${fruits}`); // Output: ["Apple", "Banana", "Cherry"]
+
+// Accessing array elements
+console.log(`First fruit: ${fruits[0]}`); // Output: Apple
+
+// Adding an element to the end of the array
+fruits.push("Date");
+console.log(`After push: ${fruits}`); // Output: ["Apple", "Banana", "Cherry", "Date"]
+
+// Removing the last element from the array
+fruits.pop();
+console.log(`After pop: ${fruits}`); // Output: ["Apple", "Banana", "Cherry"]
+
+// Removing the first element from the array
+fruits.shift();
+console.log(`After shift: ${fruits}`); // Output: ["Banana", "Cherry"]
+
+// Adding an element to the beginning of the array
+fruits.unshift("Apricot");
+console.log(`After unshift: ${fruits}`); // Output: ["Apricot", "Banana", "Cherry"]
+
+// Looping through arrays
+console.log("Looping through fruits array:");
+for (let i = 0; i < fruits.length; i++) {
+    console.log(fruits[i]);
+}
+
+console.log("Using forEach method:");
+fruits.forEach(function(fruit) {
+    console.log(fruit);
+});
+
+// Object Manipulation
+let person = {
+    name: "Dharani",
+    age: 30,
+    city: "Chennai"
+};
+console.log("Original object:", person);
+person.age = 31;
+console.log("Updated age:", person);
+delete person.city;
+console.log("After deleting city:", person);
+let additionalInfo = {
+    occupation: "Product Manager",
+    country: "Australia"
+};
+let mergedPerson = { ...person, ...additionalInfo };
+console.log("Merged object:", mergedPerson);
+
+// For-In Loop - Iterate over object properties
+let person1 = {firstName: "John", lastName: "Doe", age: 25};
+console.log("Iterating over object properties using for-in loop:");
+for (let key in person1) {
+    console.log(`${key}: ${person1[key]}`);
+}
+
+// For-Of Loop - Iterate over arrays and strings
+let gadgets = ["Phone", "Laptop", "Tablet"];
+console.log("Iterating over array using for-of loop:");
+for (let gadget of gadgets) {
+    console.log(gadget);
+}
+
+// Function Declaration
+function Fname(parameters) {
+    // function body
+    return value;
+}
+
+// Function Expression
+// A function is stored in a variable
+// Anonymous function - function with no name
+const addFunction = function(a, b) {
+    return a + b;
+};
+console.log(addFunction(4, 5)); 
+
+// Arrow Functions - shorter syntax, automatically bind this
+const cube = x => x * x * x;
+console.log(cube(5)); 
+
+// Multiple statements in arrow functions
+const greet = (name) => {
+    let message = `Hello, ${name}, Welcome`;
+    return message;
+};
+console.log(greet("Tanuj"));
+
+// Higher Order Function (HOF)
+// Takes another function as an argument or returns a function
+
+// HOF example: operate function
+function operate(num1, num2, operation) {
+    return operation(num1, num2);
+}
+
+// Function expressions for operations
+const multiply = (x, y) => x * y;
+const addOperation = (x, y) => x + y;
+
+console.log(operate(12, 15, addOperation)); // Output: 27
+console.log(operate(12, 15, multiply)); // Output: 180
+
+// HOF example: greeting function
+function greeting(message) {
+    return function(name) {
+        console.log(`${message}, ${name}`);
+    };
+}
+
+const helloMsg = greeting("Hello");
+helloMsg("Tanuj"); // Output: Hello, Tanuj
+
+
+ function fetchData() {
+	    return new Promise((resolve, reject) => {
+	        console.log("Fetching data...");
+	        setTimeout(() => { 
+	            let success = true;
+	            if (success) {
+	                resolve({name: "Tanuj", age: 25});
+	            } else {
+	                reject("Error: failed to fetch data");
+	            }
+	        }, 3000);
+	    });
+	}
+
+	async function getData() {
+	    console.log("Fetching data...");
+	    try {
+	        let data = await fetchData();
+	        console.log("Processing data:", data);
+	        return data;
+	    } catch (error) {
+	        console.log("Error:", error);
+	    }
+	}
+
+	getData()
+	    .then((data) => {
+	        const updatedData = {...data, city: "ND"};
+	        console.log("Processing updated data:", updatedData);
+	    })
+	    .catch((error) => {
+	        console.log("Error:", error);
+	    });
+	function fetchUserData() {
+	    // Make the GET request
+	    fetch("https://jsonplaceholder.typicode.com/users")
+	        .then((response) => {
+	            if (!response.ok) {
+	                throw new Error(`HTTP error: status ${response.status}`);
+	            }
+	            return response.json();
+	        })
+	        .then((data) => {
+	            console.log("Users Data:", data);
+	        })
+	        .catch((error) => {
+	            console.log("Error:", error);
+	        });
+	}
+
+	fetchUserData();
+	async function fetchUserData2() {
+	    try {
+	        // Make the GET request
+	        const response = await fetch("https://jsonplaceholder.typicode.com/users");
+	        if (!response.ok) {
+	            throw new Error(`HTTP error: status ${response.status}`);
+	        }
+        const data = await response.json();
+	        console.log("Users Data:", data);
+	    } catch (error) {
+	        console.log("Error:", error);
+	    }
+	}
+
+	fetchUserData2();
+	
+	async function fetchUserData(userId) {
+	    try {
+	        // Make the GET request with parameters
+	        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`);
+	        if (!response.ok) {
+	            throw new Error(`HTTP error: status ${response.status}`);
+	        }
+	        const data = await response.json();
+	        console.log("User Data:", data);
+	    } catch (error) {
+	        console.log("Error:", error);
+	    }
+	}
+
+	fetchUserData(5);
+	
+	async function fetchMultipleUsers(userIds) {
+	    try {
+	        // Making multiple requests
+	        let userPromises = userIds.map(id => fetch(`https://jsonplaceholder.typicode.com/users/${id}`));
+	        let responses = await Promise.all(userPromises);
+
+	        // Check for any failed requests
+	        responses.forEach(response => {
+	            if (!response.ok) {
+	                throw new Error(`HTTP error: status ${response.status}`);
+	            }
+	        });
+
+	        // Extract JSON data from all responses
+	        let users = await Promise.all(responses.map(response => response.json()));
+	        console.log("Users Data:", users);
+	    } catch (error) {
+	        console.log("Error:", error);
+	    }
+	}
+
+	fetchMultipleUsers([2, 6, 9]);
+
+	async function fetchMultipleUsers1(userIds) {
+	    try {
+	        // Making multiple requests
+	        let userPromises = userIds.map(id => fetch(`https://jsonplaceholder.typicode.com/users/${id}`));
+	        let responses = await Promise.all(userPromises);
+
+	        // Check for any failed requests
+	        responses.forEach(response => {
+	            if (!response.ok) {
+	                throw new Error(`HTTP error: status ${response.status}`);
+	            }
+	        });
+
+	        // Extract JSON data from all responses
+	        let users = await Promise.all(responses.map(response => response.json()));
+	        console.log("Users Data:", users);
+	    } catch (error) {
+	        console.log("Error:", error);
+	    }
+	}
+
+	fetchMultipleUsers1([2, 6, 15]);
+	
+	async function createUser(newUser) {
+	    try {
+	        const response = await fetch("https://jsonplaceholder.typicode.com/users", {
+	            method: "POST",
+	            headers: {
+	                "Content-Type": "application/json"
+	            },
+	            body: JSON.stringify(newUser)
+	        });
+
+	        if (!response.ok) {
+	            throw new Error(`HTTP error: status ${response.status}`);
+	        }
+
+	        const data = await response.json();
+	        console.log("User created:", data);
+	    } catch (error) {
+	        console.log("Error:", error);
+	    }
+	}
+
+	let user = { name: "Tanuj", username: "Tanuj12", email: "d@gmail.com" };
+	createUser(user);
+	async function deleteUser(userId) {
+	    // Ask for confirmation from the user
+	    let confirmation = window.confirm("Are you sure you want to delete the user?");
+
+	    // If the user cancels the deletion, log a message and return
+	    if (!confirmation) {
+	        console.log("Deletion canceled.");
+	        return;
+	    }
+
+	    try {
+	        // Make a DELETE request to the fake API
+	        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${userId}`, {
+	            method: 'DELETE'
+	        });
+
+	        // Check if the response is successful
+	        if (response.ok) {
+	            console.log(`User with ID: ${userId} deleted.`);
+	        } else {
+	            console.error('Failed to delete the user.');
+	        }
+	    } catch (error) {
+	        console.error('An error occurred:', error);
+	    }
+	}
+
+	// Example usage
+	deleteUser(1);
+	
+	
+	async function updateUser(id, userUpdate) {
+	    
+	    let confirmation = window.confirm("Are you sure you want to update the user?");
+
+	    
+	    if (!confirmation) {
+	        console.log("Update canceled.");
+	        return;
+	    }
+
+	    try {
+	        
+	        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+	            method: "PUT",
+	            headers: {
+	                "Content-Type": "application/json"
+	            },
+	            body: JSON.stringify(userUpdate)
+	        });
+
+	        
+	        if (response.ok) {
+	            const data = await response.json();
+	            console.log("User updated:", data);
+	        } else {
+	            console.error(`Failed to update the user. HTTP status: ${response.status}`);
+	        }
+	    } catch (error) {
+	        console.error("An error occurred:", error);
+	    }
+	}
+
+	
+	async function updateUserSpecific(id, userUpdateSpecific) {
+	    
+	    let confirmation = window.confirm("Are you sure you want to update the user?");
+
+	    
+	    if (!confirmation) {
+	        console.log("Update canceled.");
+	        return;
+	    }
+
+	    try {
+	        
+	        const response = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`, {
+	            method: "PATCH",
+	            headers: {
+	                "Content-Type": "application/json"
+	            },
+	            body: JSON.stringify(userUpdateSpecific)
+	        });
+
+	  
+	        if (response.ok) {
+	            const data = await response.json();
+	            console.log("User updated:", data);
+	        } else {
+	            console.error(`Failed to update the user. HTTP status: ${response.status}`);
+	        }
+	    } catch (error) {
+	        console.error("An error occurred:", error);
+	    }
+	}
+
+	
+	let userUpdate = { name: "John Doe", email: "john.doe@example.com", city: "New York", address: "123 Main St" };
+	updateUser(1, userUpdate);
+
+	let userUpdateSpecific = { name: "Jane Doe", city: "Los Angeles" };
+	updateUserSpecific(2, userUpdateSpecific);
+
+
+	
+
+ 
+
+
+</script>
+</body>
+</html>
