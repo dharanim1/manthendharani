@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Orders</title>
+</head>
+<body>
+<h1>Orders available</h1>
+<ul id="orderList"></ul>
+ 
+<label for="orderId">Enter order ID:</label>
+<input type="number" id="orderId" name="orderId">
+<button onclick="fetchOrderById()">Search</button>
+<h2>Order details</h2>
+<p id="orderDetails"></p>
+ 
+<form id="orderForm">
+<label for="bookId">Book ID:</label>
+<input type="number" id="bookId" name="bookId"><br><br>
+<label for="quantity">Quantity:</label>
+<input type="number" id="quantity" name="quantity"><br><br>
+<label for="orderDate">Order Date:</label>
+<input type="date" id="orderDate" name="orderDate"><br><br>
+<button type="button" onclick="addOrder()">Add Order</button>
+</form>
+ 
+<label for="deleteOrderId">Enter order ID to delete:</label>
+<input type="number" id="deleteOrderId" name="deleteOrderId">
+<button onclick="deleteOrderById()">Delete Order</button>
+ 
+<label for="updateOrderId">Enter order ID to update:</label>
+<input type="number" id="updateOrderId" name="updateOrderId">
+<button onclick="populateUpdateForm()">Fetch Order Details</button>
+ 
+<form id="updateOrderForm">
+<label for="updateBookId">Book ID:</label>
+<input type="number" id="updateBookId" name="updateBookId"><br><br>
+<label for="updateQuantity">Quantity:</label>
+<input type="number" id="updateQuantity" name="updateQuantity"><br><br>
+<label for="updateOrderDate">Order Date:</label>
+<input type="date" id="updateOrderDate" name="updateOrderDate"><br><br>
+<button type="button" onclick="updateOrder()">Update Order</button>
+</form>
+ 
+<script src="orderController.js"></script>
+<script>
+
+    // Fetch all orders and display them in a list
+
+    function fetchOrders() {
+
+        fetch('/api/orders')
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                const list = document.getElementById('orderList');
+
+                list.innerHTML = ''; // Clear the list before adding new items
+
+                data.forEach(order => {
+
+                    const li = document.createElement('li');
+
+                    li.textContent = `Order ID: ${order.id}, Book ID: ${order.bookId}, Quantity: ${order.quantity}, Date: ${new Date(order.orderDate).toLocaleDateString()}`;
+
+                    list.appendChild(li);
+
+                });
+
+            })
+
+            .catch(error => console.error('Error fetching orders data:', error));
+
+    }
+ 
+    // Function to fetch order by ID and display its details
+
+    function fetchOrderById() {
+
+        const orderId = document.getElementById("orderId").value;
+
+        if (!orderId) {
+
+            alert("Please enter an order ID");
+
+            return;
+
+        }
+
+        fetch(`/api/orders/${orderId}`)
+
+            .then(response => {
+
+                if (!response.ok) {
+
+                    throw new Error("Order not found");
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(order => {
+
+                document.getElementById("orderDetails").textContent =
+
+                    `Book ID: ${order.bookId} || Quantity: ${order.quantity} || Order Date: ${new Date(order.orderDate).toLocaleDateString()}`;
+
+            })
+
+            .catch(error => {
+
+                document.getElementById("orderDetails").textContent = "Order not found";
+
+            });
+
+    }
+ 
+    // Function to add a new order
+
+    function addOrder() {
+
+        const bookId = document.getElementById('bookId').value;
+
+        const quantity = document.getElementById('quantity').value;
+
+        const orderDate = document.getElementById('orderDate').value;
+ 
+        if (!bookId || !quantity || !orderDate) {
+
+            alert('Please fill in all fields');
+
+            return;
+
+        }
+ 
+        const newOrder = {
+
+            bookId: bookId,
+
+            quantity: quantity,
+
+            orderDate: orderDate
+
+        };
+ 
+        fetch('/api/orders', {
+
+            method: 'POST',
+
+            headers: {
+
+                'Content-Type': 'application/json'
+
+            },
+
+            body: JSON.stringify(newOrder)
+
+        })
+
+        .then(response => {
+
+            if (response.ok) {
+
+                alert('Order added successfully!');
+
+                fetchOrders();
+
+            } else {
+
+                throw new Error('Failed to add order');
+
+            }
+
+        })
+
+        .catch(error => {
+
+            console.error('Error adding order:', error);
+
+        });
+
+    }
+ 
+    // Function to delete an order by ID
+
+    function deleteOrderById() {
+
+        const orderId = document.getElementById("deleteOrderId").value;
+
+        if (!orderId) {
+
+            alert("Please enter an order ID");
+
+            return;
+
+        }
+ 
+        fetch(`/api/orders/${orderId}`, {
+
+            method: 'DELETE'
+
+        })
+
+        .then(response => {
+
+            if (response.ok) {
+
+                alert('Order deleted successfully!');
+
+                fetchOrders();  
+
+            } else {
+
+                throw new Error('Failed to delete order');
+
+            }
+
+        })
+
+        .catch(error => {
+
+            console.error('Error deleting order:', error);
+
+        });
+
+    }
+ 
+    // Function to populate the update form with existing order details
+
+    function populateUpdateForm() {
+
+        const orderId = document.getElementById("updateOrderId").value;
+
+        if (!orderId) {
+
+            alert("Please enter an order ID");
+
+            return;
+
+        }
+
+        fetch(`/api/orders/${orderId}`)
+
+            .then(response => {
+
+                if (!response.ok) {
+
+                    throw new Error("Order not found");
+
+                }
+
+                return response.json();
+
+            })
+
+            .then(order => {
+
+                document.getElementById('updateBookId').value = order.bookId;
+
+                document.getElementById('updateQuantity').value = order.quantity;
+
+                document.getElementById('updateOrderDate').value = new Date(order.orderDate).toISOString().split('T')[0];
+
+            })
+
+            .catch(error => {
+
+                alert("Error fetching order details");
+
+                console.error('Error fetching order details:', error);
+
+            });
+
+    }
+ 
+    // Function to update an order by ID
+
+    function updateOrder() {
+
+        const orderId = document.getElementById("updateOrderId").value;
+
+        const bookId = document.getElementById('updateBookId').value;
+
+        const quantity = document.getElementById('updateQuantity').value;
+
+        const orderDate = document.getElementById('updateOrderDate').value;
+ 
+        if (!orderId || !bookId || !quantity || !orderDate) {
+
+            alert('Please fill in all fields');
+
+            return;
+
+        }
+ 
+        const updatedOrder = {
+
+            id: orderId,
+
+            bookId: bookId,
+
+            quantity: quantity,
+
+            orderDate: orderDate
+
+        };
+ 
+        fetch('/api/orders', {
+
+            method: 'PUT',
+
+            headers: {
+
+                'Content-Type': 'application/json'
+
+            },
+
+            body: JSON.stringify(updatedOrder)
+
+        })
+
+        .then(response => {
+
+            if (response.ok) {
+
+                alert('Order updated successfully!');
+
+                fetchOrders();
+
+            } else {
+
+                throw new Error('Failed to update order');
+
+            }
+
+        })
+
+        .catch(error => {
+
+            console.error('Error updating order:', error);
+
+        });
+
+    }
+ 
+    // Initial fetch of all orders when the page loads
+
+    fetchOrders();
+</script>
+</body>
+</html>
+ 

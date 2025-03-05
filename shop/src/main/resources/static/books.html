@@ -1,15 +1,281 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Books</title>
-
 </head>
-
 <body>
 <h1>Books available</h1>
-<ul id="bookdlist"></ul>
-   <script> fetch('/api/books')
-   //get response
-   </script>
+<ul id="bookList"></ul>
+<label for="bookId">Enter book ID:</label>
+<input type="number" id="bookId" name="bookId">
+<button id="searchButton">Search</button>
+<button onclick="deleteBook()">Delete Book</button>
+<h2>Book details</h2>
+<p id="bookDetails"></p>
+<form id="bookForm">
+<label for="title">Title:</label>
+<input type="text" id="title" name="title"><br><br>
+ 
+        <label for="price">Price:</label>
+<input type="text" id="price" name="price"><br><br>
+ 
+        <label for="authorId">Author ID:</label>
+<input type="text" id="authorId" name="authorId"><br><br>
+ 
+        <button type="button" onclick="addBook()">Add Book</button><br><br>
+<label for="updateBookId">Enter book ID to update:</label>
+<input type="number" id="updateBookId" name="updateBookId"><br><br>
+<label for="updateTitle">New Title:</label>
+<input type="text" id="updateTitle" name="updateTitle"><br><br>
+<label for="updatePrice">New Price:</label>
+<input type="text" id="updatePrice" name="updatePrice"><br><br>
+<label for="updateAuthorId">New Author ID:</label>
+<input type="text" id="updateAuthorId" name="updateAuthorId"><br><br>
+<button type="button" onclick="updateBook()">Update Book</button>
+</form>
+
+<script>
+
+     function addBook() {
+
+    	    const title = document.getElementById('title').value;
+
+    	    const price = document.getElementById('price').value;
+
+    	    const authorId = document.getElementById('authorId').value;
+ 
+    	    if (title && price && authorId) {
+
+    	        const book = {
+
+    	            title: title,
+
+    	            price: price,
+
+    	            authorId: authorId
+
+    	        };
+ 
+    	        fetch('/api/books', {
+
+    	            method: 'POST',
+
+    	            headers: {
+
+    	                'Content-Type': 'application/json'
+
+    	            },
+
+    	            body: JSON.stringify(book)
+
+    	        })
+
+    	        .then(response => response.text())
+
+    	        .then(data => {
+
+    	            alert(data);
+
+    	        })
+
+    	        .catch(error => {
+
+    	            console.error('Error:', error);
+
+    	        });
+
+    	    } else {
+
+    	        alert('Please fill in all fields.');
+
+    	    }
+
+    	}
+
+     function deleteBook() {
+
+    	    const bookId = document.getElementById('bookId').value;
+ 
+    	    if (bookId) {
+
+    	        fetch(`/api/books/${bookId}`, {
+
+    	            method: 'DELETE',
+
+    	            headers: {
+
+    	                'Content-Type': 'application/json'
+
+    	            }
+
+    	        })
+
+    	        .then(response => response.text())
+
+    	        .then(data => {
+
+    	            alert(data);
+
+    	        })
+
+    	        .catch(error => {
+
+    	            console.error('Error:', error);
+
+    	        });
+
+    	    } else {
+
+    	        alert('Please enter a book ID.');
+
+    	    }
+
+    	}
+
+  // Function to update a book by ID
+
+     function updateBook() {
+
+         const bookId = document.getElementById('updateBookId').value;
+
+         const title = document.getElementById('updateTitle').value;
+
+         const price = document.getElementById('updatePrice').value;
+
+         const authorId = document.getElementById('updateAuthorId').value;
+ 
+         if (!bookId || !title || !price || !authorId) {
+
+             alert('Please fill in all fields');
+
+             return;
+
+         }
+ 
+         const updatedBook = {
+
+             title: title,
+
+             price: price,
+
+             authorId: authorId
+
+         };
+ 
+         fetch(`/api/books/${bookId}`, {
+
+             method: 'PUT',
+
+             headers: {
+
+                 'Content-Type': 'application/json'
+
+             },
+
+             body: JSON.stringify(updatedBook)
+
+         })
+
+         .then(response => {
+
+             if (response.ok) {
+
+                 alert('Book updated successfully!');
+
+                 // Optionally, refresh the book list by re-fetching the books
+
+                 fetchBooks();  // Assuming fetchBooks is defined to refresh the list
+
+             } else {
+
+                 throw new Error('Failed to update book');
+
+             }
+
+         })
+
+         .catch(error => {
+
+             console.error('Error updating book:', error);
+
+         });
+
+     }
+
+        // Fetch all books and display them in a list
+
+        fetch('/api/books')
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                const list = document.getElementById('bookList');
+
+                data.forEach(book => {
+
+                    const li = document.createElement('li');
+
+                    li.textContent = `${book.title} having price $${book.price} with author ID ${book.authorId}`;
+
+                    list.appendChild(li);
+
+                });
+
+            })
+
+            .catch(error => console.error('Error fetching books data:', error));
+
+        // Function to fetch book by ID and display its details
+
+        function fetchBookById() {
+
+            const bookId = document.getElementById("bookId").value;
+
+            if (!bookId) {
+
+                alert("Please enter a book ID");
+
+                return;
+
+            }
+
+            fetch(`/api/books/${bookId}`)
+
+                .then(response => {
+
+                    if (!response.ok) {
+
+                        throw new Error("Book not found");
+
+                    }
+
+                    return response.json();
+
+                })
+
+                .then(book => {
+
+                    document.getElementById("bookDetails").textContent =
+
+                        `Title: ${book.title} || Price: $${book.price} || Author ID: ${book.authorId}`;
+
+                })
+
+                .catch(error => {
+
+                    document.getElementById("bookDetails").textContent = "Book not found";
+
+                });
+
+        }
+
+        // Adding event listener to the search button
+
+        document.getElementById("searchButton").addEventListener("click", fetchBookById);
+</script> 
 </body>
- </html>
+</html>
+ 

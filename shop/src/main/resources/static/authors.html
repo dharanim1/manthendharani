@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Authors</title>
+</head>
+<body>
+<h1>Authors available</h1>
+<ul id="authorList"></ul>
+ 
+    <label for="authorId">Enter author ID:</label>
+<input type="number" id="authorId" name="authorId">
+<button onclick="fetchAuthorById()">Search</button>
+<h2>Author details</h2>
+<p id="authorDetails"></p>
+ 
+    <form id="authorForm">
+<label for="name">Name:</label>
+<input type="text" id="name" name="name"><br><br>
+<label for="country">Country:</label>
+<input type="text" id="country" name="country"><br><br>
+<button type="button" onclick="addAuthor()">Add Author</button>
+</form>
+ 
+    <label for="deleteAuthorId">Enter author ID to delete:</label>
+<input type="number" id="deleteAuthorId" name="deleteAuthorId">
+<button onclick="deleteAuthorById()">Delete Author</button>
+ 
+    <label for="updateAuthorId">Enter author ID to update:</label>
+<input type="number" id="updateAuthorId" name="updateAuthorId">
+<button onclick="populateUpdateForm()">Fetch Author Details</button>
+ 
+    <form id="updateAuthorForm">
+<label for="updateName">Name:</label>
+<input type="text" id="updateName" name="updateName"><br><br>
+<label for="updateCountry">Country:</label>
+<input type="text" id="updateCountry" name="updateCountry"><br><br>
+<button type="button" onclick="updateAuthor()">Update Author</button>
+</form>
+ 
+    <script src="authorController.js"></script>
+<script>
+        // Fetch all authors and display them in a list
+        function fetchAuthors() {
+            fetch('/api/authors')
+                .then(response => response.json())
+                .then(data => {
+                    const list = document.getElementById('authorList');
+                    list.innerHTML = ''; // Clear the list before adding new items
+                    data.forEach(author => {
+                        const li = document.createElement('li');
+                        li.textContent = `${author.name} from ${author.country}`;
+                        list.appendChild(li);
+                    });
+                })
+                .catch(error => console.error('Error fetching authors data:', error));
+        }
+ 
+        // Function to fetch author by ID and display their details
+        function fetchAuthorById() {
+            const authorId = document.getElementById("authorId").value;
+            if (!authorId) {
+                alert("Please enter an author ID");
+                return;
+            }
+            fetch(`/api/authors/${authorId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Author not found");
+                    }
+                    return response.json();
+                })
+                .then(author => {
+                    document.getElementById("authorDetails").textContent =
+                        `Name: ${author.name} || Country: ${author.country}`;
+                })
+                .catch(error => {
+                    document.getElementById("authorDetails").textContent = "Author not found";
+                });
+        }
+ 
+        // Function to add a new author
+        function addAuthor() {
+            const name = document.getElementById('name').value;
+            const country = document.getElementById('country').value;
+ 
+            if (!name || !country) {
+                alert('Please fill in all fields');
+                return;
+            }
+ 
+            const newAuthor = {
+                name: name,
+                country: country
+            };
+ 
+            fetch('/api/authors', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newAuthor)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Author added successfully!');
+                    fetchAuthors();
+                } else {
+                    throw new Error('Failed to add author');
+                }
+            })
+            .catch(error => {
+                console.error('Error adding author:', error);
+            });
+        }
+ 
+        // Function to delete an author by ID
+        function deleteAuthorById() {
+            const authorId = document.getElementById("deleteAuthorId").value;
+            if (!authorId) {
+                alert("Please enter an author ID");
+                return;
+            }
+ 
+            fetch(`/api/authors/${authorId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Author deleted successfully!');
+                    fetchAuthors();  
+                } else {
+                    throw new Error('Failed to delete author');
+                }
+            })
+            .catch(error => {
+                console.error('Error deleting author:', error);
+            });
+        }
+ 
+        // Function to populate the update form with existing author details
+        function populateUpdateForm() {
+            const authorId = document.getElementById("updateAuthorId").value;
+            if (!authorId) {
+                alert("Please enter an author ID");
+                return;
+            }
+            fetch(`/api/authors/${authorId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Author not found");
+                    }
+                    return response.json();
+                })
+                .then(author => {
+                    document.getElementById('updateName').value = author.name;
+                    document.getElementById('updateCountry').value = author.country;
+                })
+                .catch(error => {
+                    alert("Error fetching author details");
+                    console.error('Error fetching author details:', error);
+                });
+        }
+ 
+        // Function to update an author by ID
+        function updateAuthor() {
+            const authorId = document.getElementById("updateAuthorId").value;
+            const name = document.getElementById('updateName').value;
+            const country = document.getElementById('updateCountry').value;
+ 
+            if (!authorId || !name || !country) {
+                alert('Please fill in all fields');
+                return;
+            }
+ 
+            const updatedAuthor = {
+                id: authorId,
+                name: name,
+                country: country
+            };
+ 
+            fetch('/api/authors', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedAuthor)
+            })
+            .then(response => {
+                if (response.ok) {
+                    alert('Author updated successfully!');
+                    fetchAuthors();
+                } else {
+                    throw new Error('Failed to update author');
+                }
+            })
+            .catch(error => {
+                console.error('Error updating author:', error);
+            });
+        }
+ 
+        // Initial fetch of all authors when the page loads
+        fetchAuthors();
+</script>
+</body>
+</html>
